@@ -1,17 +1,40 @@
-
 using System;
-using System.Linq;
-
-namespace MyApplication
+class Program
 {
-    class Program
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            int[] myNumbers = { 5, 1, 8, 9 };
-            Console.WriteLine(myNumbers.Max());  // returns the largest value
-            Console.WriteLine(myNumbers.Min());  // returns the smallest value
-            Console.WriteLine(myNumbers.Sum());  // returns the sum of elements
-        }
+        while (true){
+            Random randomGenerator = new Random();
+            int number = randomGenerator.Next(1,11);
+            int guessCount = 1;
+            int guessedNum = -1;
+            while (true){
+                Console.Write("Guess a number between one and ten. ");
+                guessedNum = int.Parse(Console.ReadLine());
+                if (guessedNum == number){
+                    Console.WriteLine("You got it!");
+                    Console.WriteLine($"You guessed {guessCount} times!");
+                    break;
+                }
+                else if (guessedNum > number){
+                    Console.WriteLine("You're a little too high. Try again.");
+                }
+                else if (guessedNum < number){
+                    Console.WriteLine("You're a little low. Try again.");
+                }
+;
+                guessCount++;
+                }
+   
+
+            Console.Write("Would you like to play again? ");
+            string yOrN = Console.ReadLine().ToLower();
+            if (yOrN == "yes"){
+                continue;
+            }
+            else{
+                break;
+            };
+            }
     }
-}
+} 
