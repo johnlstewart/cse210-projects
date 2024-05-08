@@ -3,18 +3,7 @@
 // CSE 210
 // 5/7/24
 
-
-// Diagram Area //
-
 /* 
-Class: Resume
-Attributes:
-*_name : string
-*_jobs : List<Job>
-
-Behaviors: 
-* Display() : void
-
 Class: Job
 Attributes:
 *_company: string

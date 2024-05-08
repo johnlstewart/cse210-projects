@@ -3,9 +3,6 @@
 // CSE 210
 // 5/7/24
 
-
-// Diagram Area //
-
 /* 
 Class: Resume
 Attributes:
