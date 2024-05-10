@@ -1,21 +1,86 @@
-// Program must do the following
-/*
-1. Allow one to write a new entry
-2. Display the Journal contents
-3. Save the Journal to a File
-4. Load the Journal from a File
-5. provide a menu to allow option selection
-6. Cycle through 5 different prompts (or more)
-*/
-
-
-
 using System;
 
-class Program
+public class MainMenu
 {
-    static void Main(string[] args)
+    public static void Main(string[] args)
     {
-        Console.WriteLine("Hello Develop02 World!");
+        DisplayMenu();
+    }
+
+    private static void DisplayMenu()
+    {
+        bool continueRunning = true;
+        while (continueRunning)
+        {
+            Console.Clear();
+            Console.WriteLine("Welcome to the Journal Program!\n");
+            Console.WriteLine("Please select an option:");
+            Console.WriteLine("1 - New Entry");
+            Console.WriteLine("2 - Display Entry");
+            Console.WriteLine("3 - Save Entry");
+            Console.WriteLine("4 - Load Entry");
+            Console.WriteLine("0 - Exit");
+
+            Console.Write("\nYour choice: ");
+            string choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    NewEntry();
+                    break;
+                case "2":
+                    DisplayEntry();
+                    break;
+                case "3":
+                    SaveEntry();
+                    break;
+                case "4":
+                    LoadEntry();
+                    break;
+                case "0":
+                    if (ConfirmExit())
+                    {
+                        continueRunning = false;
+                    }
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice. Please select a valid option.");
+                    Console.WriteLine("Press Enter to continue...");
+                    Console.ReadLine();
+                    break;
+            }
+        }
+    }
+
+    public static void NewEntry()
+    {
+        Console.WriteLine("Creating a new entry...");
+        // Implement your logic here
+    }
+
+    public static void DisplayEntry()
+    {
+        Console.WriteLine("Displaying an entry...");
+        // Implement your logic here
+    }
+
+    public static void SaveEntry()
+    {
+        Console.WriteLine("Saving an entry...");
+        // Implement your logic here
+    }
+
+    public static void LoadEntry()
+    {
+        Console.WriteLine("Loading an entry...");
+        // Implement your logic here
+    }
+
+    public static bool ConfirmExit()
+    {
+        Console.Write("Are you sure you want to exit? (Y/N): ");
+        string input = Console.ReadLine().ToUpper();
+        return input == "Y";
     }
 }
