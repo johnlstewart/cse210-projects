@@ -1,86 +1,76 @@
 using System;
 
-public class MainMenu
+class Program
 {
-    public static void Main(string[] args)
-    {
-        DisplayMenu();
-    }
+    static Journal journal = new Journal();
 
-    private static void DisplayMenu()
+    static void Main() // Static is not passing in that object as the first thing because nothing has been set up.
     {
-        bool continueRunning = true;
-        while (continueRunning)
+        while (true)
         {
-            Console.Clear();
-            Console.WriteLine("Welcome to the Journal Program!\n");
-            Console.WriteLine("Please select an option:");
-            Console.WriteLine("1 - New Entry");
-            Console.WriteLine("2 - Display Entry");
-            Console.WriteLine("3 - Save Entry");
-            Console.WriteLine("4 - Load Entry");
-            Console.WriteLine("0 - Exit");
-
-            Console.Write("\nYour choice: ");
-            string choice = Console.ReadLine();
-
-            switch (choice)
-            {
-                case "1":
-                    NewEntry();
-                    break;
-                case "2":
-                    DisplayEntry();
-                    break;
-                case "3":
-                    SaveEntry();
-                    break;
-                case "4":
-                    LoadEntry();
-                    break;
-                case "0":
-                    if (ConfirmExit())
-                    {
-                        continueRunning = false;
-                    }
-                    break;
-                default:
-                    Console.WriteLine("Invalid choice. Please select a valid option.");
-                    Console.WriteLine("Press Enter to continue...");
-                    Console.ReadLine();
-                    break;
-            }
+            DisplayMainMenu();
         }
     }
 
-    public static void NewEntry()
+    static void DisplayMainMenu()
     {
-        Console.WriteLine("Creating a new entry...");
-        // Implement your logic here
+        Console.WriteLine("1. Write a new entry");
+        Console.WriteLine("2. Show all entries");
+        Console.WriteLine("3. Save entries to file");
+        Console.WriteLine("4. Load entries from file");
+        Console.WriteLine("5. Exit");
+        Console.Write("Select an option: ");
+        int choice = Convert.ToInt32(Console.ReadLine());
+
+        switch (choice)
+        {
+            case 1:
+                WriteNewEntry();
+                break;
+            case 2:
+                ShowAllEntries();
+                break;
+            case 3:
+                SaveEntriesToFile();
+                break;
+            case 4:
+                LoadEntriesFromFile();
+                break;
+            case 5:
+                Environment.Exit(0);
+                break;
+            default:
+                Console.WriteLine("Invalid option, please try again.");
+                break;
+        }
     }
 
-    public static void DisplayEntry()
+    static void WriteNewEntry()
     {
-        Console.WriteLine("Displaying an entry...");
-        // Implement your logic here
+        string prompt = journal.GetPrompt();
+        Console.WriteLine(prompt);
+        string userInput = Console.ReadLine();
+        Entry entry = new Entry(prompt, userInput);
+        journal.AddEntry(entry);
     }
 
-    public static void SaveEntry()
+    static void ShowAllEntries()
     {
-        Console.WriteLine("Saving an entry...");
-        // Implement your logic here
+        journal.DisplayEntries();
     }
 
-    public static void LoadEntry()
+    static void SaveEntriesToFile()
     {
-        Console.WriteLine("Loading an entry...");
-        // Implement your logic here
+        Console.Write("Enter filename to save: ");
+        string filename = Console.ReadLine();
+        journal.SaveToFile(filename);
     }
 
-    public static bool ConfirmExit()
+    static void LoadEntriesFromFile()
     {
-        Console.Write("Are you sure you want to exit? (Y/N): ");
-        string input = Console.ReadLine().ToUpper();
-        return input == "Y";
+        Console.Write("Enter filename to load: ");
+        string filename = Console.ReadLine();
+        journal.LoadFromFile(filename);
     }
 }
+
