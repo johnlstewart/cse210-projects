@@ -4,7 +4,7 @@ using System.IO; // Contains types that allow reading and writing to files and d
 
 // JOURNAL
 /* 
-
+Besides making (and initializing) 2 lists (_entries, and _prompts), This Class does the bidding of 'Program.cs'. This is, mostly, the workhorse class.
 */
 
 public class Journal
@@ -34,33 +34,34 @@ public class Journal
 
     public void SaveToFile(string filename) // When SaveEntriesToFile() in 'Program.cs' takes the variable 'filename' (which was read from user input), it runs 'SaveToFile' alongside it.
     {
-        using (StreamWriter file = new StreamWriter(filename)) // 
+        using (StreamWriter file = new StreamWriter(filename)) // Creates a StreamWriter object to write to the specified file
         {
-            foreach (Entry entry in _entries)
+            foreach (Entry entry in _entries) // Iterates through each Entry object in the _entries list.
             {
-                file.WriteLine(entry.ToCsv());
+                file.WriteLine(entry.ToCsv()); // Writes the CSV representation of each entry to the file.
+            } // The StreamWriter is automatically closed at the end of the using block.
+        }
+    }
+
+    public void LoadFromFile(string filename) // When LoadEntriesFromFile() from 'Program.cs' is invoked, the console takes the user input and calls it 'filename', which is fed into LoadFromFile() as a parameter
+    {
+        _entries.Clear();  // Wipes out all the entries from the _entries list here on 'Journal.cs'
+        string[] lines = File.ReadAllLines(filename); // Looks locally for a file called [filename] that you typed in from 'Program.cs' and opens it up to read all the lines from it. It then saves them to a local list, temporarily called 'lines'
+        foreach (string line in lines) // Opens up 'lines' with a foreach loop, going over each individual line and naming it the variable 'line'
+        {
+            string[] parts = line.Split(new string[] { "|-|" }, StringSplitOptions.None); // Performs the 'Split' method to it (taking into account the parameters of "|-|" to be the separator, and doesn't have any additional special rules)
+            if (parts.Length == 3) // says "If the line you just split (using that special separator) is exactly equal to 3 parts)
+            {
+                Entry entry = new Entry(parts[1].Trim(), parts[2].Trim()); // Performs the 'Entry()' method (function) on it (using the 'parts' list in the 2nd and 3rd position as the parameters and trims anything extra around them), resulting in an 'Entry' class object
+                _entries.Add(entry);  // adds that object (now, temporarily called 'entry') as a variable within the _entries list
             }
         }
     }
 
-    public void LoadFromFile(string filename)
+    public string GetPrompt() // When GetNewEntry() in 'Program.cs' is invoked, it calls upon this method (function) to get a random one to return it as 'prompt'.
     {
-        _entries.Clear();
-        string[] lines = File.ReadAllLines(filename);
-        foreach (string line in lines)
-        {
-            string[] parts = line.Split(new string[] { "|-|" }, StringSplitOptions.None);
-            if (parts.Length == 3)
-            {
-                Entry entry = new Entry(parts[1].Trim(), parts[2].Trim());
-                _entries.Add(entry);
-            }
-        }
-    }
-
-    public string GetPrompt()
-    {
-        Random rand = new Random();
-        return _prompts[rand.Next(_prompts.Count)];
+        Random rand = new Random(); // Initializes a new object (somehow, randomly generated), and calls it the temporary variable 'rand'
+        return _prompts[rand.Next(_prompts.Count)]; // Performs a count of the _prompts list, and inserts it as a parameter for the 'Next' method, which is being used on the 'rand' temporary variable. Whatever that value is (0-maxValue),
+                                                    // is the selected prompt that is returned as a variable.
     }
 }
