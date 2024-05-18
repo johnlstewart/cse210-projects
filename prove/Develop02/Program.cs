@@ -6,12 +6,39 @@ class Program
     static Journal journal = new Journal(); // tells the compiler that it needs to hold some memory in reserve when the program runs and among the first things it does should be to create that object and use the journal constructor to fill it. This happens implicitly at the start of main. (The compiler might put it of until later for efficiency reasons. Compiler optimization can do interesting things when it comes to code order. ) You can think of that actually happening at the start of main.
     static void Main() // Starts the core Logic where everything will take place.
     {
+        DisplaySplashScreen(); // Displays my little ASCII art splash screen
+
         while (true) // Main menu Display loop that will stick around 'forever'. The only way to 'escape' is closing the Console (Terminal) completely
         {
-            DisplayMainMenu(); // Main Menu. (BE SURE TO ADD MY SPLASH PAGE ABOVE THE MENU OPTIONS)
+            DisplayMainMenu(); // Main Menu. 
         }
     }
-
+    static void DisplaySplashScreen() // My Splash Screen
+    {
+        Console.WriteLine("                              -");
+        Console.WriteLine("          \\                  /   @ )");
+        Console.WriteLine("            \\             _/_   |~ \\)");
+        Console.WriteLine("              \\     ( ( (     \\ \\");
+        Console.WriteLine("              ( ( ( ( (       | \\");
+        Console.WriteLine("      _ _=(_(_(_(_(_(_(_  _ _ /  )");
+        Console.WriteLine("                      -  _ _ _  /");
+        Console.WriteLine("                            _\\___");
+        Console.WriteLine("                          `    \"'");
+        Console.WriteLine("              d8bd8b                         ");
+        Console.WriteLine("              Y8PY8P                         ");
+        Console.WriteLine("                                             ");
+        Console.WriteLine("      88888b. 888888 .d88b.  .d88b. 88888b.  ");
+        Console.WriteLine("      888 \"88b888888d8P  Y8bd88\"\"88b888 \"88b ");
+        Console.WriteLine("      888  88888888888888888888  888888  888 ");
+        Console.WriteLine("      888 d88P888888Y8b.    Y88..88P888  888 ");
+        Console.WriteLine("      88888P\" 888888 \"Y8888  \"Y88P\" 888  888 ");
+        Console.WriteLine("      888        888                         ");
+        Console.WriteLine("      888   Y8b d88P                         ");
+        Console.WriteLine("      888    \"Y88P\"                          ");
+        Console.WriteLine();
+        Console.WriteLine("      Prompt-Induced Journal for Everyday Observations and Notations");
+        Console.WriteLine();
+    }
     static void DisplayMainMenu() // Menu to display (and handle) the user's choices. You have to select the number, then hit 'enter' for it to work
     {
         Console.WriteLine("1. Write a new entry");
@@ -19,7 +46,7 @@ class Program
         Console.WriteLine("3. Save entries to file");
         Console.WriteLine("4. Load entries from file");
         Console.WriteLine("5. Exit");
-        Console.Write("Select an option: "); // Displayed on the same line because it's more aesthetic
+        Console.Write("What wouldst thou deau?: "); // Displayed on the same line because it's more aesthetic
         int choice = Convert.ToInt32(Console.ReadLine()); // Takes the user input, and converts it to a 32 bit integer (which is safer, by returning '0' in cases of null, rather than a FormatException error, which would break it more easily). 
 
         switch (choice) // Rather than "do (logic) while choice != 0", this is a: more readable, easier to maintain, and performance-friendly (in the case of a large number of choices. if-else statements are evaluated sequentially)
